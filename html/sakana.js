@@ -44,8 +44,8 @@ const Sakana = (_=>{
 
     // 音效
     const Voices = {
-        chisato: new Audio('chinanago.m4a'),
-        takina: new Audio('sakana.m4a'),
+        chisato: new Audio('chinanago.mp3'),
+        takina: new Audio('sakana.mp3'),
 
         isMute: true
     };
@@ -83,7 +83,7 @@ const Sakana = (_=>{
             onSwitchCharacter = _=>{}, // 切换角色回调
             scale = 'auto', // 元素缩放
             translateY = 0, // 元素位移
-            strokeStyle = '#182562', // 弹簧颜色
+            strokeStyle = '#EEEEEE', // 弹簧颜色
             canSwitchCharacter = false, // 允许换角色
         } = options;
 
@@ -389,8 +389,10 @@ const Sakana = (_=>{
         const switchCharacter = v=>{
             if(character === 'chisato'){
                 character = 'takina';
+                document.getElementsByTagName("html")[0].style.background = "#F77F96"
             }else{
                 character = 'chisato';
+                document.getElementsByTagName("html")[0].style.background = "#F2CEFC"
             }
 
             setCharacter(character);
@@ -408,26 +410,12 @@ const Sakana = (_=>{
 
         const playVoice = _ => {
             if (Voices.isMute) return;
-            // log({ r: v.r, y: v.y })
+            log({ r: v.r, y: v.y })
         
             if (character === 'chisato') {
-                if (
-                    // 'nice chin~a~na~go~' 经验值
-                    Math.abs(v.r) <= 4
-                    && Math.abs(v.y) >= 20
-                ) {
-                    log('%cchin~a~na~go~',chisatoConsoleStyle);
-                    Voices.chisato.play();
-                };
+                Voices.chisato.play();
             } else {
-                if (
-                    // 'nice sakana~' 经验值
-                    v.r >= Characters.takina.r
-                    && (Math.abs(v.y) <= 12 || v.r >= 3 * Math.abs(v.y))
-                ) {
-                    log('%csakana~',takinaConsoleStyle);
-                    Voices.takina.play();
-                };
+                Voices.takina.play();
             };
         };
 
@@ -452,46 +440,15 @@ const Sakana = (_=>{
             }
         }
     };
-
-    const baseURL = 'https://lab.magiconch.com/sakana/';
-    const twitterURL = 'https://twitter.com/blue00f4/';
-    const githubRepositoryURL = 'https://github.com/itorr/sakana';
-    log(
-        `%c錦木千束 ${baseURL}?v=chisato`,
-        chisatoConsoleStyle,
-    );
-    log(
-        `%c井ノ上たきな ${baseURL}?v=takina`,
-        takinaConsoleStyle,
-    );
     
     log(
-        `%c永续超慢速%c${baseURL}?inertia=0.001&decay=1`,
-        chisatoConsoleStyle,
-        takinaConsoleStyle,
-    );
-    
-    log(
-        '绘: %c大伏アオ %c已取得在网页中使用的非商用授权',
+        '绘: %c_真名_ %c已取得在网页中使用的非商用授权',
         'font-weight:bold',
         'color:#C34',
     
-        twitterURL+'status/1551887529615687680',
-        twitterURL+'status/1552066743853813760',
+        "https://weibo.com/n/_%E7%9C%9F%E5%90%8D_"
     );
     
-    log(
-        '微博',
-        'https://weibo.com/1197780522/M2xbREtGI',
-    );
-    log(
-        'Github',
-        githubRepositoryURL,
-    );
-    log(
-        '问题反馈',
-        `${githubRepositoryURL}/issues`,
-    );
     
 
     return {
