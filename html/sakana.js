@@ -5,7 +5,6 @@
  * Repository: https://github.com/itorr/sakana
  */
 const Sakana = (_=>{
-    /* css */
     
     const { log } = console;
     
@@ -49,6 +48,48 @@ const Sakana = (_=>{
 
         isMute: true
     };
+
+    const VoiceList = [
+        {
+            text: "王二狗",
+            audio: new Audio('sakana.mp3')
+        },
+        {
+            text: "虚研村",
+            audio: new Audio('xuyancun.mp3')
+        },
+        {
+            text: "虚研社长",
+            audio: new Audio('xuyanshezhang.mp3')
+        },
+        {
+            text: "中国台湾",
+            audio: new Audio('zhongguotaiwan.mp3')
+        },
+        {
+            text: "中国东北",
+            audio: new Audio('zhongguodongbei.mp3')
+        },
+        {
+            text: "中国北京",
+            audio: new Audio('zhongguobeijing.mp3')
+        }
+    ]
+
+    let curBarkIndex = 0;
+    
+    const changeVoice = () => {
+        if ((curBarkIndex + 1) < VoiceList.length) {
+            curBarkIndex += 1
+        }
+        else {
+            curBarkIndex = 0
+        }
+        // 修改声音
+        Voices.takina = VoiceList[curBarkIndex].audio;
+        // 修改显示
+        document.getElementById("barkSource").innerText = `狗叫来源：${VoiceList[curBarkIndex].text}`
+    }
 
     Voices.takina.volume = Voices.chisato.volume = 0.8;
     Voices.takina.muted = Voices.chisato.muted = Voices.isMute;
@@ -390,9 +431,11 @@ const Sakana = (_=>{
             if(character === 'chisato'){
                 character = 'takina';
                 document.getElementsByTagName("html")[0].style.background = "#F77F96"
+                document.getElementById("barkSource").style.display = "block"
             }else{
                 character = 'chisato';
                 document.getElementsByTagName("html")[0].style.background = "#F2CEFC"
+                document.getElementById("barkSource").style.display = "none"
             }
 
             setCharacter(character);
@@ -463,7 +506,8 @@ const Sakana = (_=>{
         destroy(){
             running = false,
             el.innerHTML = '';
-        }
+        },
+        changeVoice
     };
 })();
 
